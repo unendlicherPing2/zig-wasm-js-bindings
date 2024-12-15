@@ -1,12 +1,20 @@
-const js = @import("zig-js");
+const js = @import("js-bind");
 
-export fn add(a: i32, b: i32) i32 {
-    return a + b;
-}
-
-export fn print() void {
-    const console = js.global.get(js.Object, "console") catch return;
+export fn run() void {
+    const console = js.console() catch unreachable;
     defer console.deinit();
 
-    console.call(void, "log", .{js.string("Hello, world!")}) catch return;
+    console.log(.{js.Util.string("Hello, log!")}) catch unreachable;
+    console.info(.{js.Util.string("Hello, info!")}) catch unreachable;
+    console.debug(.{js.Util.string("Hello, debug!")}) catch unreachable;
+    console.warn(.{js.Util.string("Hello, warn!")}) catch unreachable;
+    console.perror(.{js.Util.string("Hello, perror!")}) catch unreachable;
+
+    const document = js.document() catch unreachable;
+    defer document.deinit();
+
+    const body = document.query_selector("body") orelse unreachable;
+    defer body.deinit();
+
+    console.debug(.{ js.Util.string("body"), body.object }) catch unreachable;
 }

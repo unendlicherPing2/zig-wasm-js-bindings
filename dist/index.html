@@ -22,13 +22,13 @@
             // uses its own namespace.
             WebAssembly.instantiate(bytes, zigjs.importObject())
         ).then(results => {
-            const { memory, print } = results.instance.exports;
+            const { memory, run } = results.instance.exports;
 
             // Set the memory since zigjs interfaces with memory.
             zigjs.memory = memory;
 
             // Run any of your exported functions!
-            print();
+            run();
         });
     </script>
 </body>
