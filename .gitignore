@@ -1,0 +1,4 @@
+.zig-cache/
+dist/main.wasm
+zig-out/
+zig/

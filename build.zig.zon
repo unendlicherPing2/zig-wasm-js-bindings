@@ -1,0 +1,20 @@
+.{
+    .name = "zig-wasm",
+
+    .version = "0.0.0",
+
+    .dependencies = .{
+        .@"zig-js" = .{
+            .url = "https://github.com/mitchellh/zig-js/archive/d0b8b0a57c52fbc89f9d9fecba75ca29da7dd7d1.tar.gz",
+            .hash = "12205a66d423259567764fa0fc60c82be35365c21aeb76c5a7dc99698401f4f6fefc",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        // For example...
+        //"LICENSE",
+        //"README.md",
+    },
+}

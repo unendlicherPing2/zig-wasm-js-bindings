@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+
+<body>
+    <script type="module">
+        import { ZigJS } from './glue.js';
+
+        // Initialize the stateful zigjs class. You should use one per wasm instance.
+        const zigjs = new ZigJS();
+
+        fetch('main.wasm').then(response =>
+            response.arrayBuffer()
+        ).then(bytes =>
+            // When creating your Wasm instance, pass along the zigjs import
+            // object. You can merge this import object with your own since zigjs
+            // uses its own namespace.
+            WebAssembly.instantiate(bytes, zigjs.importObject())
+        ).then(results => {
+            const { memory, print } = results.instance.exports;
+
+            // Set the memory since zigjs interfaces with memory.
+            zigjs.memory = memory;
+
+            // Run any of your exported functions!
+            print();
+        });
+    </script>
+</body>
+
+</html>
